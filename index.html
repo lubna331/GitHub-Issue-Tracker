@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--title -->
+    <title>Sign In | GitHub Issue Tracker</title>
+    <!-- tailwind + daisy UI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <!-- google font links -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <!-- font awesome for icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- set font for all -->
+     <style>
+        *{
+            font-family: "Geist", sans-serif;
+        }
+      </style>
+</head>
+<body class="bg-base-200">
+<div id="login-container" class="h-dvh flex items-center justify-center">
+    <div class="login ">
+        <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-sm border p-4">
+        <div class="flex flex-col items-center justify-center pb-4">
+            <img src="./assets/github-logo.png" class="w-20 h-20 m-4">
+            <h3 class="text-lg font-semibold">GitHub Issues Tracker</h3>    
+            <p class="text-[#64748B]">Sign in to manage your issues</p>
+        </div>
+        <!-- <legend class="fieldset-legend">Login</legend> -->
+
+        <label class="label text-black text-sm">Username</label>
+        <input type="text" class="input w-[100%]" placeholder="Enter Username" />
+
+        <label class="label text-black text-sm">Password</label>
+        <input type="password" class="input w-[100%]" placeholder="Enter Password" />
+
+        <button onclick="login()" class="btn bg-[#4A00FF] text-white mt-4">Login</button>
+        <div class="flex items-center my-4">
+            <div class="flex-grow border-t border-gray-300"></div>
+            <span class="mx-2">OR</span>
+            <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+        <div class="flex flex-col items-center justify-center pb-4">
+            <h4 class="text-gray-500 pb-1">Demo Credential:</h4>
+            <div class="flex flex-col items-center justify-center w-[100%] bg-base-200 text-sm py-4
+            rounded-md ">
+                <p class="font-semibold">Username: <span class="font-normal">admin</span></p>
+                <p class="font-semibold">Password: <span class="font-normal">admin123</span></p>
+            </div>
+        </div>
+    </fieldset>
+    </div>
+</div>
+
+
+<script src="./js/login.js"></script>
+</body>
+</html>
