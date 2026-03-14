@@ -23,6 +23,7 @@
       </style>
 </head>
 <body class="bg-base-200 h-svh">
+    <!-- navbar -->
     <nav class="h-16 px-10 py-2 flex justify-between bg-base-100 shadow-sm">
         <div class="flex items-center justify-start gap-2">
             <img src="./assets/github-logo.png" class="w-10 h-10">
@@ -30,8 +31,23 @@
         </div>
         <div class="flex items-center justify-start gap-2">
             <input type="text" placeholder="Search" class="input w-24 input-bordered md:w-auto" />
-            <button class="btn btn-primary">+ New Issue</button>
+            <button class="btn bg-[#4A00FF] text-white "><span class="text-xl font-normal">+</span> New Issue</button>
         </div>
     </nav>
+
+    <!-- tab buttons -->
+    <header class="mt-10">
+        <div class="m-auto px-6 bg-base-100 shadow w-[80%] h-20 flex items-center gap-3 rounded-md">
+            <button onclick="toggleStyleAll()" id="toggle-all" class="text-[#64748B] border border-gray-300 w-[100px] h-[32px] text-sm bg-base-100 cursor-pointer 
+            rounded-sm toggle-btn">All</button>
+            <button onclick="toggleStyleOpen()" id="toggle-open" class="text-[#64748B] border border-gray-300 w-[100px] h-[32px] text-sm bg-base-100 cursor-pointer
+            rounded-sm toggle-btn">Open</button>
+            <button onclick="toggleStyleClosed()" id="toggle-closed" class="text-[#64748B] border border-gray-300 w-[100px] h-[32px] text-sm bg-base-100 cursor-pointer
+            rounded-sm toggle-btn">Closed</button>
+        </div>
+    </header>
+
+
+    <script src="./JS/home.js"></script>
 </body>
 </html>
