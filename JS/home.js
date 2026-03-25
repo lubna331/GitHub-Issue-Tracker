@@ -34,11 +34,18 @@ function toggleStyleAll(){
         ? "border-green-500"
         : "border-purple-500";
 
+        let priorityStyle =
+        post.priority === "high" 
+        ? "bg-red-100 text-red-500"
+        :post.priority === "medium"
+        ? "bg-amber-100 text-amber-500"
+        : "bg-gray-100 text-gray-500";
+
         card.innerHTML = `
-            <div class="cards w-74 h-80 border-t-4 ${border} shadow-md bg-base-100 rounded-md p-4">
+            <div class="cards w-74 h-80 border-t-4 ${border} shadow-md bg-base-100 rounded-md p-4 cursor-pointer">
                     <div class="flex items-center justify-between pb-3">
                         <img src="${img}" alt="">
-                        <h3 class="bg-red-100 rounded-full text-sm text-red-500 px-4 py-1">${post.priority}</h3>
+                        <h3 class="${priorityStyle} rounded-full text-sm px-4 py-1">${post.priority}</h3>
                     </div>
                     <div class="h-30">
                         <h2 class="text-md font-semibold pb-1">${post.title}</h2>
@@ -49,7 +56,7 @@ function toggleStyleAll(){
                         <h3 class="bg-amber-100 rounded-full text-sm text-amber-700 px-4 py-1 border">${post.labels[1]}</h3>
                     </div>
                     <div class="text-gray-300 w-74 border-t items-center -mx-4"></div>
-                    <p class="text-sm text-gray-500 pt-4">#${post.id} ${post.author}</p>
+                    <p class="card-id text-sm text-gray-500 pt-4" data-id="${post.id}">#${post.id} ${post.author}</p>
                     <p class="text-sm text-gray-500 py-1">${post.createdAt}</p>
                 </div>
         `;
@@ -73,11 +80,18 @@ function toggleStyleOpen(){
     allPost.filter(post => post.status === "open").forEach((post) => {
         const card = document.createElement("div");
 
+        let priorityStyle =
+        post.priority === "high" 
+        ? "bg-red-100 text-red-500"
+        :post.priority === "medium"
+        ? "bg-amber-100 text-amber-500"
+        : "bg-gray-100 text-gray-500";
+
         card.innerHTML = `
-            <div class="cards w-74 h-80 border-t-4 border-green-500 shadow-md bg-base-100 rounded-md p-4">
+            <div class="cards w-74 h-80 border-t-4 border-green-500 shadow-md bg-base-100 rounded-md p-4 cursor-pointer">
                     <div class="flex items-center justify-between pb-3">
                         <img src="./assets/Open-Status.png" alt="">
-                        <h3 class="bg-red-100 rounded-full text-sm text-red-500 px-4 py-1">${post.priority}</h3>
+                        <h3 class="${priorityStyle} rounded-full text-sm px-4 py-1">${post.priority}</h3>
                     </div>
                     <div class="h-30">
                         <h2 class="text-md font-semibold pb-1">${post.title}</h2>
@@ -88,7 +102,7 @@ function toggleStyleOpen(){
                         <h3 class="bg-amber-100 rounded-full text-sm text-amber-700 px-4 py-1 border">${post.labels[1]}</h3>
                     </div>
                     <div class="text-gray-300 w-74 border-t items-center -mx-4"></div>
-                    <p class="text-sm text-gray-500 pt-4">#${post.id} ${post.author}</p>
+                    <p class="card-id text-sm text-gray-500 pt-4" data-id="${post.id}">#${post.id} ${post.author}</p>
                     <p class="text-sm text-gray-500 py-1">${post.createdAt}</p>
                 </div>
         `;
@@ -114,11 +128,18 @@ function toggleStyleClosed(){
     allPost.filter(post => post.status === "closed").forEach((post) => {
         const card = document.createElement("div");
 
+        let priorityStyle =
+        post.priority === "high" 
+        ? "bg-red-100 text-red-500"
+        :post.priority === "medium"
+        ? "bg-amber-100 text-amber-500"
+        : "bg-gray-100 text-gray-500";
+
         card.innerHTML = `
-            <div class="cards w-74 h-80 border-t-4 border-purple-500 shadow-md bg-base-100 rounded-md p-4">
+            <div class="cards w-74 h-80 border-t-4 border-purple-500 shadow-md bg-base-100 rounded-md p-4 cursor-pointer">
                     <div class="flex items-center justify-between pb-3">
                         <img src="./assets/Closed-Status.png" alt="">
-                        <h3 class="bg-red-100 rounded-full text-sm text-red-500 px-4 py-1">${post.priority}</h3>
+                        <h3 class="${priorityStyle} rounded-full text-sm px-4 py-1">${post.priority}</h3>
                     </div>
                     <div class="h-30">
                         <h2 class="text-md font-semibold pb-1">${post.title}</h2>
@@ -129,7 +150,7 @@ function toggleStyleClosed(){
                         <h3 class="bg-amber-100 rounded-full text-sm text-amber-700 px-4 py-1 border">${post.labels[1]}</h3>
                     </div>
                     <div class="text-gray-300 w-74 border-t items-center -mx-4"></div>
-                    <p class="text-sm text-gray-500 pt-4">#${post.id} ${post.author}</p>
+                    <p class="card-id text-sm text-gray-500 pt-4" data-id="${post.id}">#${post.id} ${post.author}</p>
                     <p class="text-sm text-gray-500 py-1">${post.createdAt}</p>
                 </div>
         `;
@@ -152,7 +173,7 @@ const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
         });
     
         
-// const container = document.getElementById('postContainer');
+const container = document.getElementById('postContainer');
 // container.innerHTML = "";
 // const displayPost = () => {
 //     const container = document.getElementById('postContainer');
@@ -192,3 +213,65 @@ const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 //         container.appendChild(card);
 //     });        
 // }; 
+
+container.addEventListener('click', function(event){
+    let cardEvent = event.target;
+    let parent = cardEvent.parentNode.parentNode;
+    const child = parent.querySelector(".card-id");
+    const id = child.dataset.id;
+    // console.log(id);
+    const getCard = allPost.find(post => post.id == id);
+    // console.log(getCard);
+    showPopup(getCard);
+})
+
+function showPopup(getCard){
+    const popUp = document.createElement("div");
+    popUp.className = "fixed inset-0 bg-black/50 flex items-center justify-center";
+
+    const viewPopup = document.createElement("div");
+    viewPopup.className = "bg-white w-165 h-100 rounded-md shadow-md p-6";
+    let color =
+        getCard.status === "open" 
+        ? "bg-green-500"
+        : "bg-purple-500";
+    
+    let priorityStyle =
+        getCard.priority === "high" 
+        ? "bg-red-500 text-white"
+        :getCard.priority === "medium"
+        ? "bg-amber-500 text-white"
+        : "bg-gray-500 text-white";
+    viewPopup.innerHTML = `
+        <div class=""> 
+            <h2 class="text-lg font-bold pb-3">${getCard.title}</h2>
+            <div class="flex items-center gap-2">
+                <h3 class=" ${color} rounded-full text-sm text-white px-3 pb-1">${getCard.status}</h3>
+                <p class="text-sm text-gray-500"><span>•</span> Opened by ${getCard.author}  <span>•</span>  ${getCard.createdAt}</p>
+            </div>
+            <div class="flex items-center gap-2 py-5">
+                <h3 class="bg-red-100 rounded-full text-sm text-red-500 px-4 py-1 border">${getCard.labels[0]}</h3>
+                <h3 class="bg-amber-100 rounded-full text-sm text-amber-700 px-4 py-1 border">${getCard.labels[1]}</h3>
+            </div>
+            <p class="text-sm text-gray-500 h-16">${getCard.description}</p>
+            <div class="h-20 w-full bg-base-200 rounded-md my-3 p-2 px-4 flex items-center gap-50 bg-gray-100">
+                <div class="flex flex-col">
+                    <p class="text-gray-500">Assignee:</p>
+                    <p class="font-semibold">${getCard.assignee}</p>
+                </div>
+                <div class="flex flex-col">
+                    <p class="text-gray-500">Priority:</p>
+                    <p class="${priorityStyle} rounded-full text-sm px-3 pb-1">${getCard.priority}</p>
+                </div>
+            </div>
+            <div class="grid place-items-end py-2">
+                <button class="text-white bg-[#4A00FF] py-2 px-5 rounded-md cursor-pointer closeBtn">Close</button>
+            </div>
+        </div>
+    `;
+
+    popUp.appendChild(viewPopup);
+    document.body.appendChild(popUp);
+
+    viewPopup.querySelector(".closeBtn").onclick = () => popUp.remove();
+}
