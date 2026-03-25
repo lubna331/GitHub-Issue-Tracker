@@ -7,7 +7,7 @@ toggleAll.classList.add('bg-[#4A00FF]', 'text-white')
 
 const issue = document.getElementById('issue');    
 
-function toggleStyleAll(){    
+function toggleStyleAll(posts = allPost){    
     // remove any activated color from toggle buttons first to set new one
     toggleAll.classList.remove('bg-[#4A00FF]', 'text-white')
     toggleOpen.classList.remove('bg-[#4A00FF]', 'text-white')
@@ -21,7 +21,7 @@ function toggleStyleAll(){
     
     const container = document.getElementById('postContainer');
     container.innerHTML = "";
-    allPost.forEach((post) => {
+    posts.forEach((post) => {
         const card = document.createElement("div");
 
         let img = 
@@ -169,57 +169,36 @@ const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
             allPost = data.data;
             // console.log(allPost);
             // displayPost();
-            toggleStyleAll();
+            toggleStyleAll(allPost);
+
+            //
+            const search = document.getElementById('searchBox');
+            search.addEventListener("input", (event) => {
+                const searchCard = event.target.value.toLowerCase().trim();
+                console.log(searchCard)
+                if (searchCard.length >= 3) {
+                    const filterCard = allPost.filter(post =>
+                        post.title.toLowerCase().includes(searchCard)
+                    );
+                    toggleStyleAll(filterCard);                    
+                }
+                else {
+                    toggleStyleAll(allPost);
+                    // console.log(allPost) 
+                }
+            });
         });
     
         
 const container = document.getElementById('postContainer');
-// container.innerHTML = "";
-// const displayPost = () => {
-//     const container = document.getElementById('postContainer');
-//     container.innerHTML = "";
-//     allPost.forEach((post) => {
-//         const card = document.createElement("div");
-
-//         let img = 
-//         post.status === "open" 
-//         ? "./assets/Open-Status.png"
-//         : "./assets/Closed-Status.png";
-
-//         let border =
-//         post.status === "open" 
-//         ? "border-green-500"
-//         : "border-purple-500";
-
-//         card.innerHTML = `
-//             <div class="cards w-74 h-80 border-t-4 ${border} shadow-md bg-base-100 rounded-md p-4">
-//                     <div class="flex items-center justify-between pb-3">
-//                         <img src="${img}" alt="">
-//                         <h3 class="bg-red-100 rounded-full text-sm text-red-500 px-4 py-1">${post.priority}</h3>
-//                     </div>
-//                     <div class="h-30">
-//                         <h2 class="text-md font-semibold pb-1">${post.title}</h2>
-//                         <p class="text-sm text-gray-500 pb-1">${post.description}</p>
-//                     </div>
-//                     <div class="flex items-center gap-2 py-4">
-//                         <h3 class="bg-red-100 rounded-full text-sm text-red-500 px-4 py-1 border">${post.labels[0]}</h3>
-//                         <h3 class="bg-amber-100 rounded-full text-sm text-amber-700 px-4 py-1 border">${post.labels[1]}</h3>
-//                     </div>
-//                     <div class="text-gray-300 w-74 border-t items-center -mx-4"></div>
-//                     <p class="text-sm text-gray-500 pt-4">#${post.id} ${post.author}</p>
-//                     <p class="text-sm text-gray-500 py-1">${post.createdAt}</p>
-//                 </div>
-//         `;
-//         container.appendChild(card);
-//     });        
-// }; 
 
 container.addEventListener('click', function(event){
-    let cardEvent = event.target;
-    let parent = cardEvent.parentNode.parentNode;
+    let cardEvent = event.target.closest(".cards");
+    if(!cardEvent) return;
+    let parent = cardEvent.parentNode;
     const child = parent.querySelector(".card-id");
     const id = child.dataset.id;
-    // console.log(id);
+    // console.log(parent);
     const getCard = allPost.find(post => post.id == id);
     // console.log(getCard);
     showPopup(getCard);
@@ -275,3 +254,4 @@ function showPopup(getCard){
 
     viewPopup.querySelector(".closeBtn").onclick = () => popUp.remove();
 }
+
