@@ -7,7 +7,7 @@ function login(){
     // console.log(userName, pass);
     
     if(userName === "admin" && pass === "admin123"){
-        window.location.href = "home.html";
+        window.location.href = "./home.html";
     }
     else{
         alert("Invalid Credentials")
